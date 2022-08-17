@@ -20,7 +20,7 @@ export class StartComponent implements OnInit {
         this.battleshipHttpService.createNewGame(this.playerName).subscribe((gameId) => {
             this.gameId = gameId
             this.router.navigate(['game'], {
-                queryParams: { gameId: gameId},
+                queryParams: { gameId: gameId, playerName: this.playerName},
             });
         });
     }

@@ -1,8 +1,18 @@
-<h1>Welcome to the Game Component</h1>
-
-<!-- <mat-grid-list cols="10" rowHeight="100px">
-    <mat-grid-tile
-        *ngFor="let cell of board"
-        [style.background]="getColor(cell)">
-    </mat-grid-tile>
-  </mat-grid-list> -->
+<div class="main-dev">
+    <div><p>{{fireReport}}</p></div>
+    <div class="item">
+        <mat-grid-list cols="10" rowHeight="50px">
+            <mat-grid-tile *ngFor="let cell of computerBoard" [style.background]="getComputerColor(cell)" (click)="onPlayerCellClick(cell)">
+                {{cell.coords}}
+            </mat-grid-tile>
+        </mat-grid-list>
+    </div>
+    <br>
+    <div class="item">
+        <mat-grid-list cols="10" rowHeight="50px">
+            <mat-grid-tile *ngFor="let cell of playerBoard" [style.background]="getPlayerColor(cell)">
+                {{cell.coords}}
+            </mat-grid-tile>
+        </mat-grid-list>
+    </div>
+</div>
