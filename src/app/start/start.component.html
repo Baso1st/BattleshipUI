@@ -1,0 +1,15 @@
+<div class="main-dev" fxLayout="column" fxLayoutAlign="center center">
+    <div>
+        <mat-form-field class="name-input-field" appearance="fill">
+            <mat-label>Player Name</mat-label>
+            <input matInput type="text" [(ngModel)]="playerName">
+            <button *ngIf="playerName" matSuffix mat-icon-button aria-label="Clear" (click)="playerName=''">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+    <div>
+        <button mat-raised-button color="primary" (click)="onStartclick()">Start New Game</button>
+    </div>
+</div>
+
