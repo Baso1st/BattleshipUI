@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -16,9 +15,13 @@ import {MatButtonModule} from '@angular/material/button'
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatDialogModule} from '@angular/material/dialog';
 
+//Component Imports
+import { AppComponent } from './app.component';
 import { GameComponent } from './game/game.component';
 import { StartComponent } from './start/start.component';
+import { DialogContentComponent } from './share/dialog-content/dialog-content.component';
 
 const routes: Routes = [
     { path: 'game', component: GameComponent },
@@ -30,7 +33,8 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     GameComponent,
-    StartComponent
+    StartComponent,
+    DialogContentComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +47,8 @@ const routes: Routes = [
     MatButtonModule,
     MatInputModule,
     MatIconModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDialogModule,
   ],
   exports:[RouterModule],
   providers: [],

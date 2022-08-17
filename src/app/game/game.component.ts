@@ -4,7 +4,10 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Cell } from '../models/Cell';
 import { firstValueFrom, forkJoin } from 'rxjs';
 import { CellState } from '../models/enums';
-
+import { MatDialog } from '@angular/material/dialog';
+import { DialogContentComponent } from '../share/dialog-content/dialog-content.component';
+import { DialogParams } from '../models/dialog-params';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-game',
@@ -21,7 +24,9 @@ export class GameComponent implements OnInit {
     fireReport = 'No Report'
 
     constructor(private battleService: BattleshipHttpService,
-        private activeRoute: ActivatedRoute
+        private activeRoute: ActivatedRoute,
+        private router: Router,
+        public dialog: MatDialog
     ) { }
 
     ngOnInit(): void {
@@ -69,21 +74,40 @@ export class GameComponent implements OnInit {
 
     async onPlayerCellClick(cell: Cell) {
         this.fireReport = await firstValueFrom(this.battleService.fire(this.gameId, this.playerName, this.computerName, cell.coords));
-        this.computerBoard = await firstValueFrom(this.battleService.getPlayerBoard(this.gameId, this.computerName));
         let winner = await firstValueFrom(this.battleService.getWinner(this.gameId));
         if (winner !== "") {
-            this.fireReport = `Congratulation ${this.playerName} You have won`;
-            //Show a message with Ok button then redirect to main page
+            this.fireReport = `Congratulation ${this.playerName} You have won!!!`;
+            let params: DialogParams = {
+                title: "You Won!!!",
+                message: this.fireReport,
+                confirmText: 'Close',
+                cancelText: ''
+            }
+            const dialogRef = this.dialog.open(DialogContentComponent, {data: params});
+            await firstValueFrom(dialogRef.afterClosed());
+            this.router.navigate(['start']);
             return;
         }
-        //wait a bit
+        this.computerBoard = await firstValueFrom(this.battleService.getPlayerBoard(this.gameId, this.computerName));
+
+        await new Promise(f => setTimeout(f, 300)); // Simulate computer thinking...
+
         this.fireReport = await firstValueFrom(this.battleService.computerFire(this.gameId));
-        this.playerBoard = await firstValueFrom(this.battleService.getPlayerBoard(this.gameId, this.playerName));
+        winner = await firstValueFrom(this.battleService.getWinner(this.gameId));
         if (winner !== "") {
             this.fireReport = `${this.playerName} You have lost! Good luck next time`;
-            //Show a message with Ok button then redirect to main page
+            let params: DialogParams = {
+                title: "Game Over!!!",
+                message: this.fireReport,
+                confirmText: 'Close',
+                cancelText: ''
+            }
+            const dialogRef = this.dialog.open(DialogContentComponent, {data: params});
+            await firstValueFrom(dialogRef.afterClosed());
+            this.router.navigate(['start']);
             return;
         }
+        this.playerBoard = await firstValueFrom(this.battleService.getPlayerBoard(this.gameId, this.playerName));
     }
 
 }
