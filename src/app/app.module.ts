@@ -16,6 +16,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatToolbarModule} from '@angular/material/toolbar';
+
 
 //Component Imports
 import { AppComponent } from './app.component';
@@ -49,6 +51,7 @@ const routes: Routes = [
     MatIconModule,
     MatGridListModule,
     MatDialogModule,
+    MatToolbarModule
   ],
   exports:[RouterModule],
   providers: [],

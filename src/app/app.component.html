@@ -1,3 +1,15 @@
-<h1><a routerLink="/" routerLinkActive="active" ariaCurrentWhenActive="page">Battleship</a></h1>
+<mat-toolbar class="toolbar">
+    <button mat-icon-button aria-label="icon-button with menu icon">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <button mat-button class="app-button" routerLink="/">Battleship</button>
+    <span class="spacer"></span>
+    <button mat-icon-button class="favorite-icon" aria-label="icon-button with heart icon">
+        <mat-icon>favorite</mat-icon>
+    </button>
+    <button mat-icon-button aria-label="icon-button with share icon">
+        <mat-icon>share</mat-icon>
+    </button>
+</mat-toolbar>
 
 <router-outlet></router-outlet>
